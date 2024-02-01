@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/Users/jonathanrivera/Desktop/FriendSync/backend/FriendSync/FriendSync.csproj": {}
+    "/Users/justinstevens/git/FriendSync/backend/FriendSync/FriendSync.csproj": {}
   },
   "projects": {
-    "/Users/jonathanrivera/Desktop/FriendSync/backend/FriendSync/FriendSync.csproj": {
+    "/Users/justinstevens/git/FriendSync/backend/FriendSync/FriendSync.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/jonathanrivera/Desktop/FriendSync/backend/FriendSync/FriendSync.csproj",
+        "projectUniqueName": "/Users/justinstevens/git/FriendSync/backend/FriendSync/FriendSync.csproj",
         "projectName": "FriendSync",
-        "projectPath": "/Users/jonathanrivera/Desktop/FriendSync/backend/FriendSync/FriendSync.csproj",
-        "packagesPath": "/Users/jonathanrivera/.nuget/packages/",
-        "outputPath": "/Users/jonathanrivera/Desktop/FriendSync/backend/FriendSync/obj/",
+        "projectPath": "/Users/justinstevens/git/FriendSync/backend/FriendSync/FriendSync.csproj",
+        "packagesPath": "/Users/justinstevens/.nuget/packages/",
+        "outputPath": "/Users/justinstevens/git/FriendSync/backend/FriendSync/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/jonathanrivera/.nuget/NuGet/NuGet.Config"
+          "/Users/justinstevens/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -40,7 +40,7 @@
           "dependencies": {
             "Swashbuckle.AspNetCore": {
               "target": "Package",
-              "version": "[6.1.4, )"
+              "version": "[6.5.0, )"
             }
           },
           "imports": [

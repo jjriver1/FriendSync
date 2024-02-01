@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FriendSync")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7749fe49a217bee6995732949e58ba036a5394ea")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e61e25baa890df2d824c59f5e4947215cc8b1608")]
 [assembly: System.Reflection.AssemblyProductAttribute("FriendSync")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FriendSync")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
