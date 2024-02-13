@@ -1,7 +1,11 @@
 using System.Reflection;
 using FriendSync.Models;
+using FriendSync.Repositories;
 using FriendSync.Services;
 using Microsoft.OpenApi.Models;
+
+//note: remove this line from launch settings.json  "launchUrl": "swagger" from http 
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.Configure<MongoDBSettings>(builder.Configuration.GetSection("MongoDB"));
 builder.Services.AddControllers();
 builder.Services.AddSingleton<MongoDBService>();
+//builder.Services.AddScoped<IPostRepository, PostRepository>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(o => {
     var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
@@ -30,26 +35,3 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-
-/*builder.Services.AddControllers()
-    .AddJsonOptions(
-        options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
-
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "FriendSync API", Description = "Making the Pizzas you love", Version = "v1" });
-});
-    
-var app = builder.Build();
-    
-app.UseSwagger();
-app.UseSwaggerUI(c =>
-{
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "FriendSync API V1");
-});
-    
-app.MapGet("/", () => "Hello World!");
-    
-app.Run();*/
-
