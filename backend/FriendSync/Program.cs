@@ -1,6 +1,5 @@
 using System.Reflection;
 using FriendSync.Models;
-using FriendSync.Repositories;
 using FriendSync.Services;
 using Microsoft.OpenApi.Models;
 
