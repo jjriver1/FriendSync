@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using FriendSync.Services;
 using FriendSync.Models;
 using MongoDB.Driver;
@@ -16,14 +15,24 @@ public class UserController : Controller {
         _userService = mongoDBService.UserService;
     }
 
-    [HttpGet("/api/[controller]/find-all-users")]
+    [HttpGet]
     public async Task<List<User>> Get() {
         return await _userService.GetAsync();
     }
     
-    [HttpGet("{id}")]
+    [HttpGet("/api/User/find-by-id/{id}")]
     public async Task<User> GetUserByIDAsync(string id) {
         return await _userService.GetUserByIDAsync(id);
+    }
+    
+    [HttpGet("/api/User/find-by-username/{username}")]
+    public async Task<User> GetUserByUsernameAsync(string username) {
+        return await _userService.GetUserByUserNameAsync(username);
+    }
+    
+    [HttpGet("/api/User/find-all-by-username/{username}")]
+    public async Task<List<User>> GetAllUsersByUsernameAsync(string username) {
+        return await _userService.GetAllUsersByUserNameAsync(username);
     }
 
     [HttpPost]
@@ -45,7 +54,7 @@ public class UserController : Controller {
     /// Deletes a specific User by unique id.
     /// </summary>
     /// <param name="id"> MongoDB unique id to search for user </param>
-    /// <returns> A </returns>
+    /// <returns>  </returns>
     /// <response code="200"> Returns 200 if the user was successfully deleted </response>
     /// <response code="404"> Returns 404 if the user was not found </response>
     /// <response code="500"> Returns 500 if an internal service error occurred </response>
@@ -53,7 +62,7 @@ public class UserController : Controller {
     public async Task<IActionResult> Delete(string id) {
         try {
             DeleteResult deleteResult = await _userService.DeleteAsync(id);
-        
+            
             if (!deleteResult.IsAcknowledged || deleteResult.DeletedCount == 0) {
                 return NotFound();
             }

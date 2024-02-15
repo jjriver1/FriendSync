@@ -21,11 +21,27 @@ public class UserService {
         return await _userCollection.FindAsync(filter).Result.FirstOrDefaultAsync();
     }
     
+    public async Task<User> GetUserByUserNameAsync(string username) {
+        FilterDefinition<User> filter = Builders<User>.Filter.Eq("Username", username);
+        return await _userCollection
+            .FindAsync(filter)
+            .Result
+            .FirstOrDefaultAsync();
+    }
+    
+    public async Task<List<User>> GetAllUsersByUserNameAsync(string userNameSubstring) {
+        return await _userCollection
+            .FindAsync(user => 
+                user.Username.Contains(userNameSubstring))
+            .Result
+            .ToListAsync();
+    }
+    
     public async Task CreateAsync(User playlist) {
         await _userCollection.InsertOneAsync(playlist);
-        return;
     }
 
+    // TODO: Update
     public async Task AddToUserAsync(string id, string movieId) {
         FilterDefinition<User> filter = Builders<User>.Filter.Eq("Id", id);
         UpdateDefinition<User> update = Builders<User>.Update.AddToSet<string>("movieIds", movieId);
