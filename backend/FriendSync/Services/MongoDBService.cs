@@ -1,8 +1,6 @@
-﻿using FriendSync.Controllers;
-using FriendSync.Models;
+﻿using FriendSync.Models;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
-using MongoDB.Bson;
 
 namespace FriendSync.Services;
 
@@ -16,11 +14,11 @@ public class MongoDBService {
         MongoClient client = new MongoClient(mongoDBSettings.Value.ConnectionURI);
         IMongoDatabase database = client.GetDatabase(mongoDBSettings.Value.DatabaseName);
         
-        var UserCollection = database.GetCollection<User>(mongoDBSettings.Value.UserCollection);
-        UserService = new UserService(UserCollection);
+        var userCollection = database.GetCollection<User>(mongoDBSettings.Value.UserCollection);
+        UserService = new UserService(userCollection);
         
-        var PostCollection = database.GetCollection<Post>(mongoDBSettings.Value.PostCollection);
-        PostService = new PostService(PostCollection);
+        var postCollection = database.GetCollection<Post>(mongoDBSettings.Value.PostCollection);
+        PostService = new PostService(postCollection);
         
         var CommentCollection = database.GetCollection<Comment>(mongoDBSettings.Value.CommentCollection);
         CommentService = new CommentService(CommentCollection);

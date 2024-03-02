@@ -8,8 +8,8 @@ public class UserService {
     
     private readonly IMongoCollection<User> _userCollection;
 
-    public UserService(IMongoCollection<User> UserCollection) {
-        _userCollection = UserCollection;
+    public UserService(IMongoCollection<User> userCollection) {
+        _userCollection = userCollection;
     }
     
     public async Task<List<User>> GetAsync() {
@@ -32,7 +32,7 @@ public class UserService {
     public async Task<List<User>> GetAllUsersByUserNameAsync(string userNameSubstring) {
         return await _userCollection
             .FindAsync(user => 
-                user.Username.Contains(userNameSubstring))
+                user.Username!.Contains(userNameSubstring))
             .Result
             .ToListAsync();
     }
@@ -44,9 +44,8 @@ public class UserService {
     // TODO: Update
     public async Task AddToUserAsync(string id, string movieId) {
         FilterDefinition<User> filter = Builders<User>.Filter.Eq("Id", id);
-        UpdateDefinition<User> update = Builders<User>.Update.AddToSet<string>("movieIds", movieId);
+        UpdateDefinition<User> update = Builders<User>.Update.AddToSet("movieIds", movieId);
         await _userCollection.UpdateOneAsync(filter, update);
-        return;
     }
 
     public async Task<DeleteResult> DeleteAsync(string id) {

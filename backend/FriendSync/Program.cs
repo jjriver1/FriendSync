@@ -1,7 +1,6 @@
 using System.Reflection;
 using FriendSync.Models;
 using FriendSync.Services;
-using Microsoft.OpenApi.Models;
 
 //note: remove this line from launch settings.json  "launchUrl": "swagger" from http 
 
