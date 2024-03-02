@@ -6,6 +6,6 @@ public class Comment
 {
     public ObjectId Id { get; set; }
     public ObjectId AuthorId { get; set; } //Reference to the author's user ID
-    public string Content { get; set; }
+    public string? Content { get; set; }
     public DateTime CreatedAt { get; set; } 
 }

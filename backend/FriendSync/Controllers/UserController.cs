@@ -70,7 +70,7 @@ public class UserController : Controller {
             return Ok(deleteResult);
         } catch (Exception e) {
             return StatusCode(StatusCodes.Status500InternalServerError,
-                "Error deleting data");
+                "Error deleting data\n" + e.Message + "\n" + e.StackTrace);
         }
     }
     

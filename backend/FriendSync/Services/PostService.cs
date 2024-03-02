@@ -8,8 +8,8 @@ public class PostService {
     
     private readonly IMongoCollection<Post> _postCollection;
 
-    public PostService(IMongoCollection<Post> PostCollection) {
-        _postCollection = PostCollection;
+    public PostService(IMongoCollection<Post> postCollection) {
+        _postCollection = postCollection;
     }
     
     public async Task<List<Post>> GetAsync()
@@ -32,7 +32,6 @@ public class PostService {
     {
         FilterDefinition<Post> filter = Builders<Post>.Filter.Eq("Id", id);
         await _postCollection.DeleteOneAsync(filter);
-        return;
     }
     
 }
