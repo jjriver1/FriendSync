@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Diagnostics;
+using System.Text;
+using Microsoft.AspNetCore.Mvc;
 using FriendSync.Services;
 using FriendSync.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
 using MongoDB.Driver;
 
 namespace FriendSync.Controllers; 
@@ -20,13 +23,33 @@ public class UserController : Controller {
         return await _userService.GetAsync();
     }
     
+    /// <summary>
+    /// Gets a specific User by unique id.
+    /// </summary>
+    /// <param name="id"> MongoDB unique id to search for user </param>
+    /// <returns> The user with the specified id if found else null </returns>
+    /// <response code="200"> Returns 200 if the user was successfully found </response>
+    /// <response code="400"> Returns 400 if the id is not a valid MongoDB id </response>
+    /// <response code="404"> Returns 404 if the user was not found </response>
     [HttpGet("/api/User/find-by-id/{id}")]
-    public async Task<User> GetUserByIDAsync(string id) {
-        return await _userService.GetUserByIDAsync(id);
+    public async Task<User?> GetUserByIDAsync(string id) {
+        if (id.Length != 24) {
+            Response.StatusCode = 400;
+            return null;
+        }
+        
+        User? user = await _userService.GetUserByIDAsync(id);
+        
+        if (user == null) {
+            Response.StatusCode = 404;
+            return null;
+        }
+        
+        return user;
     }
     
     [HttpGet("/api/User/find-by-username/{username}")]
-    public async Task<User> GetUserByUsernameAsync(string username) {
+    public async Task<User?> GetUserByUsernameAsync(string username) {
         return await _userService.GetUserByUserNameAsync(username);
     }
     
@@ -39,6 +62,19 @@ public class UserController : Controller {
     public async Task<IActionResult> Post([FromBody] User user) {
         // Prevent post request from having setting the ID to prevent MongoDB from throwing an error
         user.Id = "";
+        
+        if (user.Username == null || user.Password == null || user.Email == null) {
+            return BadRequest("Username, email, and password are required");
+        }
+        
+        // Verify username and email are unique
+        if (await _userService.GetUserByUserNameAsync(user.Username) != null) {
+            return BadRequest("Username is taken");
+        }
+        
+        /*if (await _userService.GetUserByEmailAsync(user.Email) != null) {
+            return BadRequest("Email is taken");
+        }*/
         
         await _userService.CreateAsync(user);
         return CreatedAtAction(nameof(Get), new { id = user.Id }, user);
@@ -70,7 +106,7 @@ public class UserController : Controller {
             return Ok(deleteResult);
         } catch (Exception e) {
             return StatusCode(StatusCodes.Status500InternalServerError,
-                "Error deleting data\n" + e.Message + "\n" + e.StackTrace);
+                "Error deleting data\n" + e.Message);
         }
     }
     

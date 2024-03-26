@@ -16,12 +16,12 @@ public class UserService {
         return await _userCollection.Find(new BsonDocument()).ToListAsync();
     }
     
-    public async Task<User> GetUserByIDAsync(string id) {
+    public async Task<User?> GetUserByIDAsync(string id) {
         FilterDefinition<User> filter = Builders<User>.Filter.Eq("Id", id);
         return await _userCollection.FindAsync(filter).Result.FirstOrDefaultAsync();
     }
     
-    public async Task<User> GetUserByUserNameAsync(string username) {
+    public async Task<User?> GetUserByUserNameAsync(string username) {
         FilterDefinition<User> filter = Builders<User>.Filter.Eq("Username", username);
         return await _userCollection
             .FindAsync(filter)
@@ -51,6 +51,6 @@ public class UserService {
     public async Task<DeleteResult> DeleteAsync(string id) {
         FilterDefinition<User> filter = Builders<User>.Filter.Eq("Id", id);
         return await _userCollection.DeleteOneAsync(filter);
-    }  
+    }
 
 }
