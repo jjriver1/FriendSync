@@ -4,8 +4,19 @@ using FriendSync.Services;
 
 //note: remove this line from launch settings.json  "launchUrl": "swagger" from http 
 
-
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "Policy1",
+        policy  =>
+        {
+            policy.WithOrigins("http://localhost:3000", "http://localhost:3000/*")
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials();
+        });
+});
 
 // Add services to the container.
 builder.Services.Configure<MongoDBSettings>(builder.Configuration.GetSection("MongoDB"));
@@ -25,6 +36,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("Policy1");
 
 app.UseHttpsRedirection();
 
