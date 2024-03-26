@@ -29,6 +29,14 @@ public class UserService {
             .FirstOrDefaultAsync();
     }
     
+    public async Task<User?> GetUserByEmailAsync(string email) {
+        FilterDefinition<User> filter = Builders<User>.Filter.Eq("Email", email);
+        return await _userCollection
+            .FindAsync(filter)
+            .Result
+            .FirstOrDefaultAsync();
+    }
+    
     public async Task<List<User>> GetAllUsersByUserNameAsync(string userNameSubstring) {
         return await _userCollection
             .FindAsync(user => 
@@ -48,8 +56,8 @@ public class UserService {
         await _userCollection.UpdateOneAsync(filter, update);
     }
 
-    public async Task<DeleteResult> DeleteAsync(string id) {
-        FilterDefinition<User> filter = Builders<User>.Filter.Eq("Id", id);
+    public async Task<DeleteResult> DeleteAsync(string username) {
+        FilterDefinition<User> filter = Builders<User>.Filter.Eq("Username", username);
         return await _userCollection.DeleteOneAsync(filter);
     }
 
