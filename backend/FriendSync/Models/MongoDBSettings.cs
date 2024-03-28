@@ -5,5 +5,5 @@ public class MongoDBSettings {
     public string DatabaseName { get; set; } = null!;
     public string UserCollection { get; set; } = null!;
     public string PostCollection { get; set; } = null!;
-    public string CommentCollection { get; set; } = null!;
+    //public string CommentCollection { get; set; } = null!;
 }

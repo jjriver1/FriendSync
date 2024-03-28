@@ -12,5 +12,5 @@ public class Post
     public string AuthorUsername { get; set; } = "";
     public DateTime CreatedAt { get; set; }
     public List<string>? Likes { get; set; } //List of user IDs who liked the post
-    public List<Comment>? Comments { get; set; } //List of comments
+    //public List<Comment>? Comments { get; set; } //List of comments
 }
