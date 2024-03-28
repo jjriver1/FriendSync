@@ -114,12 +114,14 @@ export default defineComponent({
         bio: "",
       });
 
-      if (response.status === ResponseCodes.CREATED) {
-        //this.$router.push("/login");
-        console.log("Account created");
-        this.statusText = "Account created";
-        this.resetForm();
-      } else {
+      // noinspection JSIncompatibleTypesComparison
+      if (response === null || response === undefined) {
+        console.error("Failed to create account. Response was null.");
+        this.statusText = "Failed to create account. Response was null.";
+        return;
+      }
+
+      if (response.status !== ResponseCodes.CREATED) {
         console.error(
           "Failed to create account. \n" +
             "Status was: " +
@@ -128,8 +130,17 @@ export default defineComponent({
             response.data,
         );
 
-        this.statusText = `Failed to create account. Error was "${response.data}". See console for more details.`;
+        this.statusText = response.data;
+        return;
       }
+
+      if (response.status === ResponseCodes.CREATED) {
+        //this.$router.push("/login");
+        console.log("Account created");
+        this.statusText = "Account created";
+      }
+
+      this.resetForm();
     },
     resetForm() {
       this.email = "";
@@ -143,4 +154,6 @@ export default defineComponent({
 });
 </script>
 
-<style scoped lang="sass"></style>
+<style scoped lang="sass">
+
+</style>
