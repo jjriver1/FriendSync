@@ -14,8 +14,6 @@ on:
   pull_request:
     # The branches below must be a subset of the branches above
     branches: [ "main" ]
-  schedule:
-    - cron: '26 23 * * 0'
 
 jobs:
   eslint:
@@ -31,15 +29,16 @@ jobs:
 
       - name: Install ESLint
         run: |
-          npm install eslint@8.10.0
+          npm install eslint@8.57.0
           npm install @microsoft/eslint-formatter-sarif@2.1.7
         working-directory: ./frontend/friend-sync
 
       - name: Run ESLint
         run: npx eslint .
-          --config .eslintrc.json
+          --ignore-path .eslintignore
+          --config .eslintrc.js
           --ext .js,.jsx,.ts,.tsx
-          --format @microsoft/eslint-formatter-sarif 
+          --format @microsoft/eslint-formatter-sarif
           --output-file eslint-results.sarif
         continue-on-error: true
         working-directory: ./frontend/friend-sync
