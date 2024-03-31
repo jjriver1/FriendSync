@@ -18,7 +18,7 @@ export default createVuetify({
     defaultTheme: "dark",
     themes: {
       light: {
-        colors:{
+        colors: {
           primary: "#1976D2",
           secondary: "#424242",
           accent: "#82B1FF",
@@ -27,10 +27,10 @@ export default createVuetify({
           success: "#4CAF50",
           warning: "#FFC107",
           background: "#f5f5f5",
-        }
+        },
       },
       dark: {
-        colors:{
+        colors: {
           primary: "#2196F3",
           secondary: "#424242",
           accent: "#82B1FF",
@@ -39,8 +39,8 @@ export default createVuetify({
           success: "#4CAF50",
           warning: "#FFC107",
           background: "#505050",
+        },
       },
-    },
     },
   },
 });
