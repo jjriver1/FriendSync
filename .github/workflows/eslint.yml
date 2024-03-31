@@ -38,8 +38,8 @@ jobs:
           --ignore-path .eslintignore
           --config .eslintrc.js
           --ext .js,.jsx,.ts,.tsx
+          --format @microsoft/eslint-formatter-sarif
           --output-file eslint-results.sarif
-#          --format @microsoft/eslint-formatter-sarif
         continue-on-error: true
         working-directory: ./frontend/friend-sync
 
