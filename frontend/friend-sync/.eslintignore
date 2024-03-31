@@ -6,3 +6,4 @@ src/vite-env.d.ts
 src/typed-router.d.ts
 src/components.d.ts
 src/auto-imports.d.ts
+src/api.ts
