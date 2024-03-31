@@ -1,6 +1,5 @@
 <template>
   <v-app color="background">
-
     <v-main>
       <router-view />
       <AppFooter />

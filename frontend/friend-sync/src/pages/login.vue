@@ -10,7 +10,7 @@
         </p>
       </v-col>
       <v-col sm="12" md="4" align-self="center">
-        <LoginCard/>
+        <LoginCard />
       </v-col>
     </v-row>
   </v-container>
