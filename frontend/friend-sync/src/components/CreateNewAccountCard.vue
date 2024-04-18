@@ -1,64 +1,21 @@
 <template>
-	<v-card max-width="400px">
-		<v-card-title>
-			<div style="text-align: center">
-				<h1 class="mb-2">Create Account</h1>
-			</div>
-		</v-card-title>
-		<v-card-text>
-			<v-row>
-				<v-form>
-					<!-- should the row be nested inside the form? -->
-					<v-col cols="12">
-						<v-text-field
-							v-model="username"
-							label="Username"
-							outlined
-							required
-							@input="validateUsername"
-						></v-text-field>
-					</v-col>
-					<v-col cols="12">
-						<v-text-field
-							v-model="email"
-							label="Email"
-							outlined
-							required
-							@input="validateEmail"
-						></v-text-field>
-					</v-col>
-					<v-col cols="12">
-						<v-text-field
-							v-model="password"
-							label="Password"
-							type="password"
-							outlined
-							required
-							@input="validatePassword"
-						></v-text-field>
-					</v-col>
-					<v-col cols="12">
-						<v-text-field
-							v-model="confirmPassword"
-							label="Confirm Password"
-							type="password"
-							outlined
-							required
-							@input="validateConfirmPassword"
-						></v-text-field>
-					</v-col>
-					<v-col cols="12">
-						<p>{{ statusText }}</p>
-					</v-col>
-					<v-col cols="12">
-						<v-btn :disabled="!validateForm" @click="createAccount">
-							Create Account
-						</v-btn>
-						<v-btn @click="resetForm">Reset</v-btn>
-					</v-col>
-				</v-form>
-			</v-row>
-		</v-card-text>
+	<v-card title="Create Account" width="400" class="text-center pa-4" color="secondary">
+		<v-sheet class="mx-auto" width="300" color="secondary">
+			<v-form @submit.prevent>
+				<v-text-field v-model="username" label="Username" outlined required @input="validateUsername"></v-text-field>
+				<v-text-field v-model="email" label="Email" outlined required @input="validateEmail"></v-text-field>
+				<v-text-field v-model="password" label="Password" type="password" outlined required @input="validatePassword"></v-text-field>
+				<v-text-field v-model="confirmPassword" label="Confirm Password" type="password" outlined required @input="validateConfirmPassword"></v-text-field>
+				<v-col cols="12">
+					<p>{{ statusText }}</p>
+				</v-col>
+				<v-btn :disabled="!validateForm" @click="createAccount">Create Account</v-btn>
+				<v-btn @click="resetForm">Reset</v-btn>
+				<v-divider class="ma-4 border-opacity-50"></v-divider>
+				<p>Already Have An Account?</p>
+				<v-btn class="mt-2" block @click="openlogin">Log In</v-btn>
+			</v-form>
+		</v-sheet>
 	</v-card>
 </template>
 
@@ -115,32 +72,37 @@ export default defineComponent({
 			});
 
 			if (response.status === ResponseCodes.CREATED) {
-				//this.$router.push("/login");
 				console.log("Account created");
 				this.statusText = "Account created";
 				this.resetForm();
 			} else {
 				console.error(
 					"Failed to create account. \n" +
-						"Status was: " +
-						response.status +
-						"\nData was: " +
-						response.data,
+					"Status was: " +
+					response.status +
+					"\nData was: " +
+					response.data,
 				);
 
 				this.statusText = `Failed to create account. Error was "${response.data}". See console for more details.`;
 			}
 		},
 		resetForm() {
+			this.username = "";
 			this.email = "";
 			this.password = "";
 			this.confirmPassword = "";
+			this.validUsername = false;
 			this.validEmail = false;
 			this.validPassword = false;
 			this.validConfirmPassword = false;
+		},
+		openlogin() {
+			this.$router.push("/login");
 		},
 	},
 });
 </script>
 
-<style scoped lang="sass"></style>
+<style scoped lang="sass">
+</style>

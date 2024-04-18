@@ -14,6 +14,14 @@ interface User {
   password: string;
   bio: string;
 }
+interface post {
+	id: string;
+	content: string;
+	authorUsername: string;
+	createdAt: string;
+	likes: string[];
+
+}
 
 function generateAxiosResponse(): AxiosResponse {
   return {
@@ -88,5 +96,7 @@ export async function getPosts(username: string): Promise<AxiosResponse<any, any
 		return handleError(error);
 	}
 }
+
+//create a post method down here or something
 
 export type { User };
