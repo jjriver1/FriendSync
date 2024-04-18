@@ -4,17 +4,10 @@ using MongoDB.Driver;
 
 namespace FriendSync.Services; 
 
-public class PostService {
-    
-    private readonly IMongoCollection<Post> _postCollection;
-
-    public PostService(IMongoCollection<Post> postCollection) {
-        _postCollection = postCollection;
-    }
-    
+public class PostService(IMongoCollection<Post> postCollection) {
     public async Task<List<Post>> GetAsync()
     {
-        return await _postCollection.Find(new BsonDocument()).ToListAsync();
+        return await postCollection.Find(new BsonDocument()).ToListAsync();
     }
     
     /*public async Task<List<Post>> GetAsync(string id)
@@ -22,16 +15,21 @@ public class PostService {
         FilterDefinition<Post> filter = Builders<Post>.Filter.Eq("Id", id);
         return await _postCollection.Find(filter).ToListAsync();
     }*/
+    
+    public async Task<List<Post>> GetPostByAuthorAsync(string author) {
+        FilterDefinition<Post> filter = Builders<Post>.Filter.Eq("AuthorUsername", author);
+        return await postCollection.FindAsync(filter).Result.ToListAsync();
+    }
 
     public async Task CreateAsync(Post post)
     {
-        await _postCollection.InsertOneAsync(post);
+        await postCollection.InsertOneAsync(post);
     }
     
     public async Task DeleteAsync(string id)
     {
         FilterDefinition<Post> filter = Builders<Post>.Filter.Eq("Id", id);
-        await _postCollection.DeleteOneAsync(filter);
+        await postCollection.DeleteOneAsync(filter);
     }
     
 }
