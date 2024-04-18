@@ -4,5 +4,5 @@
 </template>
 
 <script setup lang="ts">
-import DashBoard from "@/pages/DashBoard.vue";
+import DashBoard from "@/components/DashBoard.vue";
 </script>

@@ -34,12 +34,16 @@ export default defineComponent({
 			router.push("/login");
 		}
 	},
-	mounted: async function (){
+	mounted: async function () {
+		if (!store.isLoggedIn) {
+			return;
+		}
+
 		const response = await getPosts(store.username);
 		if (response.status === 200) {
 			console.log(response.data);
 
-			for (const post of response.data) {;
+			for (const post of response.data) {
 				this.posts.push({
 					authorUsername: post.authorUsername,
 					content: post.content,
