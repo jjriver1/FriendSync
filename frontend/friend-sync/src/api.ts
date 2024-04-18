@@ -59,7 +59,7 @@ function handleError(error: any): AxiosResponse<any, any> {
   return response;
 }
 
-export default async function createUser(
+export async function createUser(
   userObject: User,
 ): Promise<AxiosResponse<any, any>> {
   try {
@@ -68,6 +68,17 @@ export default async function createUser(
   } catch (error) {
     return handleError(error);
   }
+}
+
+export async function login(
+	email: string,
+	password: string,
+): Promise<AxiosResponse<any, any>> {
+	try {
+		return await instance.post(`/api/User/login/${email}/${password}`);
+	} catch (error) {
+		return handleError(error);
+	}
 }
 
 export type { User };

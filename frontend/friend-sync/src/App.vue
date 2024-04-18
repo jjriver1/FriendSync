@@ -14,6 +14,6 @@
 <style>
 html,
 body {
-  overflow-y: auto;
+	overflow-y: auto;
 }
 </style>
