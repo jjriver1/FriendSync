@@ -1,22 +1,56 @@
 <template>
-  <v-card title="Login" width="400" class="text-center pa-4" color="secondary">
-    <v-sheet class="mx-auto" width="300" color="secondary">
-      <v-form>
-        <v-text-field label="Username"></v-text-field>
-        <v-text-field label="Password"></v-text-field>
-        <!--<div>Forgot Password?</div>-->
-        <v-btn class="mt-2" type="submit" block>Log In</v-btn>
-        <v-divider class="ma-4 border-opacity-50"></v-divider>
-        <v-btn class="mt-2" type="submit" block>Create New Account</v-btn>
-      </v-form>
-    </v-sheet>
-  </v-card>
+	<v-card title="Login" width="400" class="text-center pa-4" color="secondary">
+		<v-sheet class="mx-auto" width="300" color="secondary">
+			<v-form @submit.prevent>
+				<v-text-field v-model="email" type="text" label="Email"></v-text-field>
+				<v-text-field
+					v-model="password"
+					type="password"
+					label="Password"
+				></v-text-field>
+				<!--<div>Forgot Password?</div>-->
+				<v-btn class="mt-2" block @click="login">Log In</v-btn>
+				<v-divider class="ma-4 border-opacity-50"></v-divider>
+				<v-btn class="mt-2" block @click="openCreateAccount">
+					Create New Account
+				</v-btn>
+			</v-form>
+		</v-sheet>
+	</v-card>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import router from "@/router";
+import { login } from "@/api.ts";
+
 export default defineComponent({
-  name: "LoginCard",
+	name: "LoginCard",
+	data: function () {
+		return {
+			email: "",
+			password: "",
+		};
+	},
+	methods: {
+		async login() {
+			const response = await login(this.email, this.password);
+			if (response.status === 200) {
+				router.push("/");
+			} else {
+				console.error(
+					"Failed to create account. \n" +
+						"Status was: " +
+						response.status +
+						"\nData was: " +
+						response.data,
+				);
+			}
+		},
+		openCreateAccount() {
+			router.push("/create-account");
+		},
+	},
 });
 </script>
 
