@@ -1,10 +1,10 @@
 <template>
-  <v-app color="background">
-    <v-main>
-      <router-view />
-      <AppFooter />
-    </v-main>
-  </v-app>
+	<v-app color="background">
+		<v-main>
+			<router-view />
+			<AppFooter />
+		</v-main>
+	</v-app>
 </template>
 
 <script lang="ts" setup>

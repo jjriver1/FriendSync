@@ -81,4 +81,12 @@ export async function login(
 	}
 }
 
+export async function getPosts(username: string): Promise<AxiosResponse<any, any>> {
+	try {
+		return await instance.get(`/api/Post/${username}`);
+	} catch (error) {
+		return handleError(error);
+	}
+}
+
 export type { User };

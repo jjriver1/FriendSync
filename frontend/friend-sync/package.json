@@ -11,6 +11,7 @@
     "@mdi/font": "6.2.95",
     "axios": "^1.6.8",
     "core-js": "^3.34.0",
+    "jwt-decode": "^4.0.0",
     "pinia": "^2.1.7",
     "roboto-fontface": "*",
     "unplugin-auto-import": "^0.17.5",

@@ -23,6 +23,15 @@
 import { defineComponent } from "vue";
 import router from "@/router";
 import { login } from "@/api.ts";
+import { useAppStore } from "@/stores/app.ts";
+import { jwtDecode } from "jwt-decode";
+
+const store = useAppStore();
+
+interface MyToken {
+	email: string;
+	unique_name: string;
+}
 
 export default defineComponent({
 	name: "LoginCard",
@@ -36,10 +45,15 @@ export default defineComponent({
 		async login() {
 			const response = await login(this.email, this.password);
 			if (response.status === 200) {
+				const decodedJWT = jwtDecode<MyToken>(response.data);
+				store.isLoggedIn = true;
+				store.jwt = response.data;
+				store.email = decodedJWT["email"];
+				store.username = decodedJWT["unique_name"];
 				router.push("/");
 			} else {
 				console.error(
-					"Failed to create account. \n" +
+					"Failed to login. \n" +
 						"Status was: " +
 						response.status +
 						"\nData was: " +
